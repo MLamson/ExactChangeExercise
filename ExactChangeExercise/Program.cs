@@ -12,18 +12,18 @@ namespace ExactChangeExercise
         {
         }
 
-        internal static dynamic checkCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cidArray)
+        internal static dynamic checkCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cashInDrawerInitial)
         {
             decimal change = cash - price;
             decimal totalCashInDrawer = 0m;
-            Dictionary<string, decimal> updatedCashInDrawer = new Dictionary<string, decimal>(cidArray);
+            Dictionary<string, decimal> updatedCashInDrawer = new Dictionary<string, decimal>(cashInDrawerInitial);
            
-            foreach (var key in cidArray.Keys)
+            foreach (var key in cashInDrawerInitial.Keys)
             {
-                totalCashInDrawer += cidArray[key];
+                totalCashInDrawer += cashInDrawerInitial[key];
             }
 
-            Dictionary<string, decimal> changeArray = new Dictionary<string, decimal>
+            Dictionary<string, decimal> changeTotal = new Dictionary<string, decimal>
             {
                 {"ONE HUNDRED", 0m}, {"TWENTY", 0m}, {"TEN", 0m}, {"FIVE", 0m},
                 {"ONE", 0m}, {"QUARTER", 0m}, {"DIME", 0m},  {"NICKEL", 0m},
@@ -37,18 +37,18 @@ namespace ExactChangeExercise
                 { "PENNY", 0.01m}
             };
 
-            Dictionary<string, decimal> finalArray = new Dictionary<string, decimal> {};
+            Dictionary<string, decimal> changeTotalReturn = new Dictionary<string, decimal> {};
 
             if (ChangeEqualsTotalCashInDrawer(change, totalCashInDrawer))
             {
                 return "Closed";
             }
 
-            foreach (var key in cidArray.Keys)
+            foreach (var key in cashInDrawerInitial.Keys)
             {
                 while (change >= monetaryValues[key] && updatedCashInDrawer[key] != 0)
                 {
-                    changeArray[key] += monetaryValues[key];
+                    changeTotal[key] += monetaryValues[key];
                   
                     change -= monetaryValues[key];
 
@@ -61,14 +61,14 @@ namespace ExactChangeExercise
                 return "Insufficient Funds";
             }
 
-            for (int i = 0; i < changeArray.Count; i++)
+            for (int i = 0; i < changeTotal.Count; i++)
             {
-                if (changeArray.ElementAt(i).Value != 0)
+                if (changeTotal.ElementAt(i).Value != 0)
                 {
-                    finalArray.Add(changeArray.ElementAt(i).Key, changeArray.ElementAt(i).Value);
+                    changeTotalReturn.Add(changeTotal.ElementAt(i).Key, changeTotal.ElementAt(i).Value);
                 }
             }
-            return finalArray;
+            return changeTotalReturn;
         }
 
         private static bool ChangeEqualsTotalCashInDrawer(decimal change, decimal totalCashInDrawer)
