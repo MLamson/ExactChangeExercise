@@ -12,7 +12,7 @@ namespace ExactChangeExercise
         {
         }
 
-        internal static dynamic checkCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cashInDrawerInitial)
+        internal static dynamic CheckCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cashInDrawerInitial)
         {
             decimal change = cash - price;
             decimal totalCashInDrawer = 0m;

@@ -19,7 +19,7 @@ namespace ExactChangeExercise
                 { "PENNY", 0.01m}
             };
             // Act
-            string result = Program.checkCashRegister(price, cash, cidArray);
+            string result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             Assert.AreEqual("Insufficient Funds", result);
@@ -38,7 +38,7 @@ namespace ExactChangeExercise
                 { "PENNY", 0.50m}
             };
             // Act
-            string result = Program.checkCashRegister(price, cash, cidArray);
+            string result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             Assert.AreEqual("Closed", result);
@@ -61,7 +61,7 @@ namespace ExactChangeExercise
                 {"QUARTER", 0.50m}
             };
             // Act
-            Dictionary<string, decimal> result = Program.checkCashRegister(price, cash, cidArray);
+            Dictionary<string, decimal> result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             CollectionAssert.AreEqual(expectedReturnedArray, result);
@@ -85,7 +85,7 @@ namespace ExactChangeExercise
                 {"ONE", 1.00m}, {"QUARTER", 0.50m}, {"DIME", 0.20m}, { "PENNY", 0.04m}
             };
             // Act
-            Dictionary<string, decimal> result = Program.checkCashRegister(price, cash, cidArray);
+            Dictionary<string, decimal> result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             CollectionAssert.AreEqual(expectedReturnedArray, result);
@@ -104,7 +104,7 @@ namespace ExactChangeExercise
                 { "PENNY", 0.01m}
             };
             // Act
-            string result = Program.checkCashRegister(price, cash, cidArray);
+            string result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             Assert.AreEqual("Insufficient Funds", result);
@@ -128,7 +128,7 @@ namespace ExactChangeExercise
                 {"ONE", 1.00m}, {"QUARTER", 0.50m}, {"DIME", 0.20m}, { "PENNY", 0.04m}
             };
             // Act
-            Dictionary<string, decimal> result = Program.checkCashRegister(price, cash, cidArray);
+            Dictionary<string, decimal> result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             CollectionAssert.AreEqual(expectedReturnedArray, result);
@@ -147,7 +147,7 @@ namespace ExactChangeExercise
                 { "PENNY", 0.01m}
             };
             // Act
-            string result = Program.checkCashRegister(price, cash, cidArray);
+            string result = Program.CheckCashRegister(price, cash, cidArray);
 
             // Assert
             Assert.AreEqual("Insufficient Funds", result);
