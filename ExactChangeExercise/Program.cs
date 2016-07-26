@@ -12,15 +12,14 @@ namespace ExactChangeExercise
         {
         }
 
-        internal static dynamic CheckCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cashInDrawerInitial)
+        internal static dynamic CheckCashRegister(decimal price, decimal cash, Dictionary<string, decimal> cashInDrawer)
         {
             decimal change = cash - price;
             decimal totalCashInDrawer = 0m;
-            Dictionary<string, decimal> updatedCashInDrawer = new Dictionary<string, decimal>(cashInDrawerInitial);
            
-            foreach (var key in cashInDrawerInitial.Keys)
+            foreach (var key in cashInDrawer.Keys)
             {
-                totalCashInDrawer += cashInDrawerInitial[key];
+                totalCashInDrawer += cashInDrawer[key];
             }
 
             Dictionary<string, decimal> changeTotal = new Dictionary<string, decimal>
@@ -37,22 +36,20 @@ namespace ExactChangeExercise
                 { "PENNY", 0.01m}
             };
 
-            Dictionary<string, decimal> changeTotalReturn = new Dictionary<string, decimal> {};
-
             if (ChangeEqualsTotalCashInDrawer(change, totalCashInDrawer))
             {
                 return "Closed";
             }
 
-            foreach (var key in cashInDrawerInitial.Keys)
+            foreach (var key in monetaryValues.Keys)
             {
-                while (change >= monetaryValues[key] && updatedCashInDrawer[key] != 0)
+                while (change >= monetaryValues[key] && cashInDrawer[key] != 0)
                 {
                     changeTotal[key] += monetaryValues[key];
                   
                     change -= monetaryValues[key];
 
-                    updatedCashInDrawer[key] -= monetaryValues[key];
+                    cashInDrawer[key] -= monetaryValues[key];
                 }
             }
 
@@ -61,13 +58,7 @@ namespace ExactChangeExercise
                 return "Insufficient Funds";
             }
 
-            for (int i = 0; i < changeTotal.Count; i++)
-            {
-                if (changeTotal.ElementAt(i).Value != 0)
-                {
-                    changeTotalReturn.Add(changeTotal.ElementAt(i).Key, changeTotal.ElementAt(i).Value);
-                }
-            }
+            var changeTotalReturn = changeTotal.Where(changeForDenom => changeForDenom.Value != 0).ToDictionary(pair => pair.Key, pair => pair.Value);
             return changeTotalReturn;
         }
 
